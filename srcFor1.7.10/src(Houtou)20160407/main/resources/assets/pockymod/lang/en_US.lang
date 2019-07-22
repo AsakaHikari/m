@@ -1,0 +1,15 @@
+tile.tutorialBlock.name=Test Block
+item.pockys.name=Strawberry Pocky
+item.pockyc.name=Chocolate Pocky
+item.pockyv.name=Vanilla Pocky
+item.pockyt.name=Green Tea Pocky
+item.pockya.name=Almond Pocky
+item.bacon.name=Bacon
+entity.entityTest.name=Entity Test
+item.sushi.name=Sushi Roll
+itemGroup.Minekawaii=Minekawaii
+item.ricebowl.name=Bowl of Rice
+item.drynoodles.name=Uncooked Ramen
+item.hotwater.name=Hot Water Bottle
+item.cookednoodles.name=Cooked Ramen
+item.ramune.name=Ramune Soda

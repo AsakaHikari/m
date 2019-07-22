@@ -1,0 +1,7 @@
+﻿#English
+item.rocky_choco_icecandy.name=RockyChocoIcecandy
+enchantment.icy=Icy
+enchantment.hardness=Hardness
+enchantment.sweatness=Sweatness
+enchantment.tooHard=Too Hard
+death.attack.tooHardIce=Rocky Choco Icecandy was too hard for %1$s

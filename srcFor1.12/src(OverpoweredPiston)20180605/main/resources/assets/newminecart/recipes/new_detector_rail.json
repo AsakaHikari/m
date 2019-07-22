@@ -1,0 +1,11 @@
+{
+    "type": "forge:ore_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:detector_rail"
+    }
+  ],
+  "result": {
+    "item": "newminecart:new_detector_rail"
+  }
+}

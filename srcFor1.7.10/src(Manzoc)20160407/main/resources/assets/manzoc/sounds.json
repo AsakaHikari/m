@@ -1,0 +1,38 @@
+{
+"manzoc.eatbar": {
+    "category": "neutral",
+    "sounds": [
+      "eatbar"
+    ]
+  },
+"manzoc.CM1": {
+    "category": "neutral",
+    "sounds": [
+      "semiFullCM"
+    ]
+  },
+"manzoc.CM2": {
+    "category": "neutral",
+    "sounds": [
+      "manzoc_dosue"
+    ]
+  },
+"manzoc.CM3": {
+    "category": "neutral",
+    "sounds": [
+      "manzoc_men"
+    ]
+  },
+"manzoc.CM4": {
+    "category": "neutral",
+    "sounds": [
+      "exam_manzoc"
+    ]
+  },
+"manzoc.CM5": {
+    "category": "neutral",
+    "sounds": [
+      "manzoc_train"
+    ]
+  }
+}

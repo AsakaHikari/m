@@ -1,0 +1,16 @@
+{
+    "type": "forge:ore_shaped",
+    "pattern": ["X X","XYX"],
+    "key": {
+        "X": {
+            "item": "minecraft:stonebrick"
+        },
+        "Y": {
+            "item": "buildingbootsmod:building_boots_0"
+        }
+    },
+    "result": {
+        "item": "buildingbootsmod:building_boots_1",
+        "data": 0
+    }
+}

@@ -1,0 +1,7 @@
+﻿#Japanese
+item.rocky_choco_icecandy.name=ロッキーチョコアイス
+enchantment.icy=冷たい
+enchantment.hardness=硬い
+enchantment.sweatness=甘い
+enchantment.tooHard=硬すぎ
+death.attack.tooHardIce=ロッキーチョコアイスは %1$s には硬すぎた

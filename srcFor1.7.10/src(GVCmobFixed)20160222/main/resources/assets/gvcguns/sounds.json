@@ -1,0 +1,33 @@
+{
+"gvcguns.fire": {
+    "category": "neutral",
+    "sounds": [
+      "sg"
+    ]
+  },
+  "gvcguns.firehg": {
+    "category": "neutral",
+    "sounds": [
+      "hg"
+    ]
+  },
+  "gvcguns.reload": {
+    "category": "neutral",
+    "sounds": [
+      "reload"
+    ]
+  },
+  "gvcguns.grenade": {
+    "category": "neutral",
+    "sounds": [
+      "grenade"
+    ]
+  },
+  "gvcguns.bullethit": {
+    "category": "neutral",
+    "sounds": [
+      "hit"
+    ]
+  }
+
+}

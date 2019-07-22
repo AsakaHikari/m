@@ -1,0 +1,293 @@
+﻿package satisfybyone;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+import com.ibm.icu.util.Calendar;
+import com.ibm.icu.util.GregorianCalendar;
+
+import satisfybyone.calendarzone.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.MathHelper;
+import net.minecraft.world.WorldServer;
+import net.minecraftforge.event.entity.player.PlayerUseItemEvent;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent;
+
+public class ManzocEventHandler {
+	public int lastHour;
+	public int lastMinute;
+	public Calendar calendar = new GregorianCalendar();
+	public List<CalendarZone> calendarZones = new ArrayList<CalendarZone>();
+	public String[][] citiesNormal = {
+			{ "カイロ", "ケープタウン(南アフリカ)", "カリーニングラード(ロシア連邦)" },
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{ "ガラパゴス諸島(エクアドル)" },
+			{},
+			{},
+			{},
+			{},
+			{},
+			{ "ガンビエ諸島(仏領オセアニア)" },
+			{ "タイオハエ(仏領オセアニア)" },
+			{ "ホノルル", "パペーテ(仏領オセアニア)", "ラトロンガ島(ニュージーランド)", "ライン諸島(キリバス)" },
+			{},
+			{ "ヌクアロファ(トンガ)", "パゴパゴ(アメリカ)", "ニウエ島(ニュージーランド)", "ミッドウェー島(アメリカ)" },
+			{},
+			{ "フナフティ(ツバル)", "マジュロ(マーシャル諸島)", "ペトロパブロフスク・カムチャツキー(ロシア連邦)" },
+			{},
+			{ "ホニアラ(ソロモン諸島)", "ポートビラ(バヌアツ)", "スレドネコリムスク(サハ共和国)" },
+			{},
+			{ "サイパン", "ウラジオストク", "グアム", "オイミャコン", "ポートモレスビー(パプアニューギニア)" },
+			{ "ダーウィン(オーストラリア)", "アリススプリングス(オーストラリア)" },
+			{},
+			{ "平壌", "咸興", "清津", "南浦", "元山" },
+			{ "マニラ", "北京", "香港", "イルクーツク(ロシア連邦)", "ウラン・ウデ(ブリヤート共和国)" },
+			{},
+			{ "バンコク", "プノンペン(カンボジア)", "ハルビン", "クラスノヤルスク(ロシア連邦)",
+					"フライング・フィッシュ・コーブ(クリスマス島オーストラリア)" },
+			{ "ヤンゴン(ミャンマー)", "ネビドー(ミャンマー)", "ココス諸島(オーストラリア)" },
+			{ "チッタゴン(バングラデシュ)", "ビシュケク(キルギス)", "ティンプー(ブータン)", "アルマトイ(カザフスタン)",
+					"ノヴォシビルスク(ロシア連邦)", "ダッカ(バングラデシュ)", "ディエゴガルシア島(英領インド洋地域)" },
+			{ "スリジャヤワルダナプラコッテ", "ニューデリー", "コルカタ", "チェラプンジ", "ムンバイ", "カリカット",
+					"アフマダーバード(インド)" },
+			{ "タシュケント(ウズベキスタン)", "エカテリンブルク(ロシア連邦)", "マレ(モルディブ)",
+					"ポルトーフランセ(フランス領南方・南極地域)", "サマルカンド(ウズベキスタン)",
+					"イスラマバード(パキスタン)", "アシガバート(トルクメニスタン)", "ドゥシャンベ(タジキスタン)",
+					"ハード島とマクドナルド諸島(オーストラリア)", "アクトベ(カザフスタン)" },
+			{ "カブール(アフガニスタン)", "ザランジ(アフガニスタン)", "ヘラート(アフガニスタン)",
+					"マザーリシャリーフ(アフガニスタン)", "カンダハル(アフガニスタン)" },
+			{ "マスカット(オマーン)", "アブダビ(アラブ首長国連邦)", "ドバイ", "イジェフスク(ウドムルト共和国)",
+					"ヴィクトリア(セイシェル)", "ポートルイス(モーリシャス)", "トビリシ(グルジア)",
+					"エレバン(アルメニア)", "レユニオン島(フランス)", "サマーラ(ロシア連邦)" },
+			{},
+			{ "モスクワ", "バグダード(イラク)", "アンタナナリボ(マダガスカル)", "ドドマ(タンザニア)",
+					"ナイロビ(ケニア)", "サンクトペテルブルク", "メッカ", "ドーハ(カタール)",
+					"マナーマ(バーレーン)", "アディスアベバ(エチオピア)" }, {} };
+	public String[][] citiesNA = {
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{ "シカゴ", "メキシコシティ", "オクラホマシティ", "ダラス", "ヒューストン" },
+			{},
+			{ "アカプルコ(メキシコ)", "デンバー", "ソルトレークシティ(アメリカ)", "フェニックス(アメリカ)" },
+			{},
+			{ "バンクーバー", "ロサンゼルス", "シアトル", "ポートランド", "サンフランシスコ", "サンディエゴ",
+					"ラスベガス" }, {},
+			{ "アンカレッジ(アメリカ)", "ブルドーベイ(アメリカ)", "ジュノー(アメリカ)" }, {}, {}, {}, {},
+			{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
+			{}, {}, {}, {} };
+	public String[][] citiesEastEurope = {
+			{ "アンカラ", "アテネ", "ヘルシンキ(フィンランド)", "ソフィア(ブルガリア)", "イスタンブール",
+					"ニコシア(キプロス)", "ヴィリニュス(リトアニア)", "タリン(エストニア)", "リガ(ラトビア)",
+					"ブガレスト(ルーマニア)" },
+			{},
+			{ "ローマ", "パリ", "ストックホルム", "ベルリン", "アントウェルペン", "アンドラ・ラ・ベリャ(アンドラ)",
+					"チューリッヒ(スイス)", "ジュネーヴ(スイス)", "プラハ(チェコ)", "ブダペスト(ハンガリー)",
+					"ブリュッセル(ベルギー)", "ワルシャワ", "ファドゥーツ(リヒテンシュタイン)" }, {}, {}, {},
+			{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
+			{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
+			{}, {}, {}, {}, {}, {}, {}, {} };
+	public String[][] citiesIran = {
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{},
+			{ "テヘラン(イラン)", "マシュハド(イラン)", "エスファハーン(イラン)", "タブリーズ(イラン)",
+					"シーラーズ(イラン)" }, {}, {} };
+	public String[][] citiesNZ = { {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
+			{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
+			{ "オークランド", "クライストチャーチ", "ハミルトン", "ウェリントン" }, {}, {}, {}, {}, {},
+			{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {} };
+	public String[][] citiesOG = { {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
+			{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
+			{}, {}, {}, {}, { "シドニー", "メルボルン", "キャンベラ", "タスマニア島" },
+			{ "アデレード(オーストラリア)" }, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
+			{}, {}, {} };
+
+	public ManzocEventHandler() {
+		/*
+		 * java.util.Calendar c=new java.util.GregorianCalendar();
+		 * this.calendar=new
+		 * GregorianCalendar(c.get(java.util.Calendar.YEAR),c.get
+		 * (java.util.Calendar.MONTH),c.get(java.util.Calendar.DAY_OF_MONTH)
+		 * ,c.get
+		 * (java.util.Calendar.HOUR_OF_DAY),c.get(java.util.Calendar.MINUTE
+		 * ),c.get(java.util.Calendar.SECOND));
+		 */
+		this.lastHour = calendar.get(Calendar.HOUR_OF_DAY);
+		this.lastMinute = calendar.get(Calendar.MINUTE);
+
+		this.calendarZones.add(new NormalCalendarZone(citiesNormal));
+		this.calendarZones.add(new NorthAmericaCalendarZone(citiesNA));
+		this.calendarZones.add(new EastEuropeCalendarZone(citiesEastEurope));
+		this.calendarZones.add(new IranCalendarZone(this.citiesIran));
+		this.calendarZones.add(new NZCalendarZone(this.citiesNZ));
+		this.calendarZones.add(new OGCalendarZone(this.citiesOG));
+	}
+
+	@SubscribeEvent
+	public void onManzoc(PlayerUseItemEvent.Start event) {
+		if (event.item.getItem() == ManzocCore.itemBar) {
+			event.entityPlayer.worldObj.playSoundAtEntity(event.entityPlayer,
+					"manzoc:manzoc.eatbar", 0.5F,
+					event.entityPlayer.worldObj.rand.nextFloat() * 0.1F + 0.9F);
+		}
+
+	}
+
+	@SubscribeEvent
+	public void onServerTick(TickEvent.ServerTickEvent event) {
+		calendar.setTimeInMillis(System.currentTimeMillis());
+		int hour = calendar.get(Calendar.HOUR_OF_DAY);
+		int minute = calendar.get(Calendar.MINUTE);
+		int thirtyMinutes = hour * 2 + (minute / 30);
+		int lastThirtyMinutes = this.lastHour * 2 + (this.lastMinute / 30);
+		// System.out.println("hour:"+hour+" minute:"+minute);
+		String msg = "";
+		if (thirtyMinutes != lastThirtyMinutes && minute < 5) {
+			if (thirtyMinutes == 34) {
+				msg = "<草彅剛> もう5時かぁ！小腹すいたなぁ";
+				for (WorldServer w : MinecraftServer.getServer().worldServers) {
+					for (Object o : w.playerEntities) {
+						EntityPlayer p = (EntityPlayer) o;
+						for (int x = MathHelper.floor_double(p.posX - 6); x < MathHelper
+								.ceiling_double_int(p.posX + 6); x++) {
+							for (int y = MathHelper.floor_double(p.posY - 6); y < MathHelper
+									.ceiling_double_int(p.posY + 6); y++) {
+								for (int z = MathHelper
+										.floor_double(p.posZ - 6); z < MathHelper
+										.ceiling_double_int(p.posZ + 6); z++) {
+									if (w.getBlock(x, y, z) == ManzocCore.blockBar) {
+										w.playSoundEffect(
+												x,
+												y,
+												z,
+												"manzoc:manzoc.semiFullCM",
+												0.7f,
+												w.rand.nextFloat() * 0.05F + 0.95F);
+									}
+								}
+							}
+						}
+						List<Entity> l = w
+								.getEntitiesWithinAABBExcludingEntity(p,
+										AxisAlignedBB.getBoundingBox(
+												p.posX - 6, p.posY - 6,
+												p.posZ - 6, p.posX + 6,
+												p.posY + 6, p.posZ + 6));
+						for (Entity e : l) {
+							if (e instanceof EntityManzocCart) {
+								w.playSoundAtEntity(e,
+										"manzoc:manzoc.semiFullCM", 0.7f,
+										w.rand.nextFloat() * 0.05F + 0.95F);
+							}
+						}
+					}
+				}
+			} else {
+				List<String> cities = new ArrayList<String>();
+				for (CalendarZone c : this.calendarZones) {
+					cities.addAll(c.getManzocCitiesOnThirtyMinutes(calendar,
+							thirtyMinutes));
+				}
+				if (cities.size() > 0) {
+					String city = cities
+							.get(new Random().nextInt(cities.size()));
+					msg = ("<草彅剛> " + city + "はもう5時かぁ");
+				}
+			}
+
+		} else if (thirtyMinutes == 33 && minute != this.lastMinute) {
+			if (minute == 58) {
+				msg = "<草彅剛> あぁまだかー";
+			} else if (minute == 59) {
+				msg = "<草彅剛> もうちょっとで5時だな";
+			}
+		}
+		if (!msg.equals("")) {
+			for (WorldServer w : MinecraftServer.getServer().worldServers) {
+				for (Object o : w.playerEntities) {
+					EntityPlayer p = (EntityPlayer) o;
+					p.addChatMessage(new ChatComponentText(msg));
+				}
+			}
+		}
+
+		this.lastHour = hour;
+		this.lastMinute = minute;
+	}
+}

@@ -1,0 +1,118 @@
+package orgchem.core;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class CopyOfCompoundsData {
+	public static CopyOfCompoundsData 
+	H2O=new CopyOfCompoundsData("water","H2O",18,0,100,1000000,1100000,40800,6012,75),
+	CO2=new CopyOfCompoundsData("carbon dioxide","CO2",44,-56,518000,-79,101325,1560000,1256000,93722,9017,30),
+	H2=new CopyOfCompoundsData("hydrogen","H2",2,-259,-253,86000,70849,1170,58089,29),
+	O2=new CopyOfCompoundsData("oxygen","O2",32,-218,-182,656250,1141200,214000,13876,29),
+	N2=new CopyOfCompoundsData("nitrogen","N2",28,-210,-195,1026000,806110,199000,25702,29),
+	NH3=new CopyOfCompoundsData("ammonia","NH3",17,-78,-33,820000,681970,23443,564689,37),
+	Cl2=new CopyOfCompoundsData("clorine","Cl2",71,-101,-34,1900000,1562500,20433,6417,34),
+	
+	methane=new CopyOfCompoundsData("methane","CH4",16,-182,-164,494000,422360,8173,939,36),
+	ethane=new CopyOfCompoundsData("ethane","(CH3)2",30,-183,-89,700000,543830,14682,2852,53),
+	propane=new CopyOfCompoundsData("propane","CH3CH2CH3",44,-188,-42),
+	butane=new CopyOfCompoundsData("butane","CH3(CH2)2CH3",58,-144,-1),
+	pentane=new CopyOfCompoundsData("pentane","CH3(CH2)3CH3",72,-131,36),
+	isopentane=new CopyOfCompoundsData("isopentane","CH3CH(CH3)CH2CH3",72,-159,27),
+	hexane=new CopyOfCompoundsData("hexane","CH3(CH2)4CH3",86,-95,69),
+	largeAlkanes=new CopyOfCompoundsData("largeAlkanes","CH3(CH2)xCH3",130,20,300),
+	cyclohexane=new CopyOfCompoundsData("cyclohexane","C6H12",86,-126,81),
+	
+	benzene=new CopyOfCompoundsData("benzene","C6H6",78,5,80),
+	naphthalene=new CopyOfCompoundsData("naphthalene","C10H8",128,80,218),
+	phenole=new CopyOfCompoundsData("phenole","(C6H5)OH",95,40,181),
+	toluene=new CopyOfCompoundsData("toluene","(C6H5)CH3",93,-94,110),
+	chlorobenzene=new CopyOfCompoundsData("chlorobenzene","(C6H5)Cl",112,-45,132),
+	o_nitrotoluen=new CopyOfCompoundsData("o_nitrotoluen","(C6H4)CH3,2-NO2",137,-9,222),
+	p_nitrotoluen=new CopyOfCompoundsData("p_nitrotoluen","(C6H4)CH3,3-NO2",137,16,230),
+	n_nitrotoluen=new CopyOfCompoundsData("n_nitrotoluen","(C6H4)CH3,4-NO2",137,51,238),
+	dinitrotoluen_2_6=new CopyOfCompoundsData("2,6-dinitrotoluen","(C6H3)CH3,2-NO2,6-NO2",182,68,275),
+	dinitrotoluen_2_4=new CopyOfCompoundsData("2,4-dinitrotoluen","(C6H3)CH3,2-NO2,4-NO2",182,71,300),
+	trinitrotoluen_2_4_6=new CopyOfCompoundsData("2,4,6-trinitrotoluen","(C6H2)CH3,2-NO2,4-NO2,6-NO2",227,80,240),
+	largePAHs=new CopyOfCompoundsData("largePAHs","CxHx",1300,400,600),
+	
+	H2SO4=new CopyOfCompoundsData("sulfulic acid","H2SO4",98,10,290),
+	HNO3=new CopyOfCompoundsData("nitric acid","HNO3",63,-42,83),
+	mixedAcid=new CopyOfCompoundsData("mixed acid","NO2+2HSO4+H3O",162,-16,186),
+	NaOH=new CopyOfCompoundsData("sodium hydroxide","NaOH",39,318,1388);
+ public final String name;
+ public final String formula;
+ public final EmpiricalFormula eFormula;
+ public final short weight;
+ /**on 101325Pa[K]*/
+ public final int meltingPoint,boilingPoint;
+ public final int id;
+ /**g/m^3*/
+ public final int solidDensity,liquidDensity;
+ /**J/mol*/
+ public final int heatOfEvaporation,heatOfFusion;
+ /**Pressure to melt/boil on 1K*/
+ public final int meltingConstant,boilingConstant;
+ /**J/mol.K*/
+ public final int heatCapacity;
+ public static Map<Integer,CopyOfCompoundsData> compoundsMap=new HashMap();
+ public static int size=0;
+ 
+ 	public CopyOfCompoundsData(String name_,String formula_,int weight_,int meltingPoint_,int boilingPoint_,int solidDensity_,int liquidDensity_,int heatOfEvaporation_,int heatOfFusion_,int heatCapacity_){
+ 		name=name_;
+ 		formula=formula_;
+ 		weight=(short)weight_;
+ 		meltingPoint=meltingPoint_+273;
+ 		boilingPoint=boilingPoint_+273;
+ 		solidDensity=solidDensity_;
+ 		liquidDensity=liquidDensity_;
+ 		heatOfEvaporation=heatOfEvaporation_;
+ 		heatOfFusion=heatOfFusion_;
+ 		meltingConstant=(int) (101325-(heatOfFusion/(weight/liquidDensity-weight/solidDensity)*Math.log(meltingPoint)));
+ 		boilingConstant=(int) (101325/(Math.pow(Math.E,(-heatOfEvaporation/(8.31*boilingPoint)))));
+ 		heatCapacity=heatCapacity_;
+ 		eFormula=null;
+ 		id=getSize();
+ 		addToMap();
+ 	}
+ 	
+ 	public CopyOfCompoundsData(String name_,String formula_,int weight_,int meltingPoint_,int mPressure,int boilingPoint_,int bPressure,int solidDensity_,int liquidDensity_,int heatOfEvaporation_,int heatOfFusion_,int heatCapacity_){
+ 		name=name_;
+ 		formula=formula_;
+ 		weight=(short)weight_;
+ 		solidDensity=solidDensity_;
+ 		liquidDensity=liquidDensity_;
+ 		heatOfEvaporation=heatOfEvaporation_;
+ 		heatOfFusion=heatOfFusion_;
+ 		meltingConstant=(int) (mPressure-(heatOfFusion/(weight/liquidDensity-weight/solidDensity)*Math.log(meltingPoint_+273)));
+ 		boilingConstant=(int) (bPressure/(Math.pow(Math.E,(-heatOfEvaporation/(8.31*(boilingPoint_+273))))));
+ 		meltingPoint=(int) Math.exp((mPressure-meltingConstant)*(weight/liquidDensity-weight/solidDensity)/heatOfFusion);
+ 		boilingPoint=(int) (-heatOfEvaporation/(8.31*Math.log(bPressure/boilingConstant)));
+ 		heatCapacity=heatCapacity_;
+ 		eFormula=null;
+ 		id=getSize();
+ 		addToMap();
+ 	}
+ 	/*
+ 	private CompoundsData(String name_,EmpiricalFormula formula_,int weight_,int meltingPoint_,int boilingPoint_){
+ 		name=name_;
+ 		eFormula=formula_;
+ 		weight=(short)weight_;
+ 		meltingPoint=meltingPoint_;
+ 		boilingPoint=boilingPoint_;
+ 		formula=null;
+ 		id=getSize();
+ 		addToMap();
+ 	}
+ 	*/
+ 	public String getFormula(){
+ 		return formula==null?eFormula.name:formula;
+ 	}
+ 	private void addToMap(){
+ 		compoundsMap.put(size, this);
+ 		size++;
+ 	}
+ 	private int getSize(){
+ 		return size;
+ 	}
+}

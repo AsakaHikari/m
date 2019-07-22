@@ -1,0 +1,27 @@
+#
+entity.NormalShell.name=Normal Shell
+entity.BigShell.name=Big Shell
+entity.HugeShell.name=Huge Shell
+entity.RubberBall.name=Rubber Ball
+entity.NormalHE.name=Normal HE
+entity.BigHE.name=Big HE
+entity.HugeHE.name=Huge HE
+entity.NormalHE(PointImpact).name=Normal HE(PointImpact)
+entity.BigHE(PointImpact).name=Big HE(PointImpact)
+entity.HugeHE(PointImpact).name=Huge HE(PointImpact)
+entity.NormalHEProximity.name=Normal HE(Proximity)
+entity.BigHEProximity.name=Big HE(Proximity)
+entity.HugeHEProximity.name=Huge HE(Proximity)
+item.shell_0.name=Normal Shell
+item.shell_1.name=Big Shell
+item.shell_2.name=Huge Shell
+item.shell_3.name=Rubber Ball
+item.shell_4.name=Normal HE
+item.shell_5.name=Big HE
+item.shell_6.name=Huge HE
+item.shell_7.name=Normal HE(Point Impact)
+item.shell_8.name=Big HE(Point Impact)
+item.shell_9.name=Huge HE(Point Impact)
+item.shell_10.name=Normal HE(Proximity)
+item.shell_11.name=Big HE(Proximity)
+item.shell_12.name=Huge HE(Proximity)

@@ -1,0 +1,16 @@
+[
+{
+  "modid": "MonsterRegularArmy",
+  "name": "MonsterRegularArmy",
+  "description": "Now you are invaded.",
+  "version": "Alpha1.0",
+  "mcversion": "1.7.10",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Namayake"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

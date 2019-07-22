@@ -1,0 +1,12 @@
+{
+    "type": "forge:ore_shapeless",
+  "ingredients": [
+    {
+      "item": "newminecart:new_minecart",
+      "item": "minecraft:chest",
+    }
+  ],
+  "result": {
+    "item": "newminecart:new_chest_minecart"
+  }
+}

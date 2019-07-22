@@ -1,0 +1,16 @@
+{
+    "type": "forge:ore_shaped",
+    "pattern": ["III", "IRI", "III"],
+    "key": {
+        "I": {
+            "item": "minecraft:dye","data":4
+        },
+        "R": {
+            "item": "minecraft:gold_block"
+ }
+    },
+    "result": {
+        "item": "crowbarmodfromrailcraft:chunk_loader",
+        "data": 0
+    }
+}

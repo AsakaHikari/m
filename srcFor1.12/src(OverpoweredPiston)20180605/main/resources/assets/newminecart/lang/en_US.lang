@@ -1,0 +1,6 @@
+#English
+entity.NewMinecart.name=New Minecart
+entity.NewMinecartChest.name=New Minecart with Chest
+item.new_minecart.name=New Minecart
+item.new_chest_minecart.name=New Minecart with Chest
+tile.new_detector_rail.name=New Detector Rail

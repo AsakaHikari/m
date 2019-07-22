@@ -1,0 +1,16 @@
+[
+{
+  "modid": "AlwaysNight",
+  "name": "AlwaysNight",
+  "description": "You won't see the Sun forever.",
+  "version": "1.0.0",
+  "mcversion": "1.7.10",
+ 
+  "updateUrl": "",
+  "authorList": ["namayake"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

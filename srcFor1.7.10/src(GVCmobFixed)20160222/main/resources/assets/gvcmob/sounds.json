@@ -1,0 +1,27 @@
+{
+"gvcmob.grenade": {
+    "category": "neutral",
+    "sounds": [
+      "grenade_voice"
+    ]
+  },
+  "gvcmob.heli": {
+    "category": "neutral",
+    "sounds": [
+      "heli"
+    ]
+  },
+  "gvcmob.tank": {
+    "category": "neutral",
+    "sounds": [
+      "tank"
+    ]
+  },
+  "gvcmob.rpg": {
+    "category": "neutral",
+    "sounds": [
+      "rpg_voice"
+    ]
+  }
+
+}

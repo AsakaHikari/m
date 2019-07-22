@@ -1,0 +1,16 @@
+{
+    "type": "forge:ore_shaped",
+    "pattern": ["X X","XYX"],
+    "key": {
+        "X": {
+            "item": "minecraft:cobblestone"
+        },
+        "Y": {
+            "item": "minecraft:iron_boots"
+        }
+    },
+    "result": {
+        "item": "buildingbootsmod:building_boots_0",
+        "data": 0
+    }
+}
